@@ -2,18 +2,22 @@
 
 ## 1. Project Description
 
-This project implements a portfolio rebalancing calculation that determines the number of shares to buy or sell 
-for each security based on its target allocation, current allocation and unit share price.
+This project implements a portfolio rebalancing calculation that determines the number of shares to buy or sell for each security based on its target allocation, current allocation and unit share price.
+
 The solution is implemented in Python, with automated tests using pytest.
 
 ## 2. Assessment Requirements
 
 The assessment requires a rebalancing application to be tested through manual and automated test cases.
-The tests must verify that the total number of shares to buy or sell for each security is correctly calculated.
-The implementation and tests are documented and maintained in GitHub.
+
+The tests must verify that the number of shares to buy or sell for each security is correctly calculated.
+
+The implementation, test cases and supporting documentation are maintained in GitHub.
 
 ## 3. Rebalancing Logic
+
 For each security, the application:
+
 1. Calculates the target monetary value using the total portfolio assets and target allocation.
 2. Calculates the current monetary value using the total portfolio assets and current allocation.
 3. Calculates the difference between the target and current values.
@@ -29,50 +33,143 @@ For each security, the application:
 A positive result represents shares to buy, a negative result represents shares to sell, and zero represents no trade.
 
 ## 4. Assumptions
-- Portfolio allocations are supplied as percentages.
-- Each security has a target allocation, current allocation and unit share price.
-- The total portfolio asset value is supplied as an input.
-- Fractional share quantities are supported by the current implementation.
-- Results are calculated independently for each security.
 
+- Fractional share quantities are supported. Results are not rounded to whole shares, preserving calculation accuracy.
 
 ## 5. Manual Test Cases
-The following test cases validate the portfolio rebalancing calculations, including buying, selling, unchanged allocations and input validation.
+
+The following test cases define the expected behaviour of the portfolio rebalancing application. They cover buying, selling, unchanged allocations, different portfolio values, empty portfolios and input validation.
+
 Positive share quantities represent purchases; negative quantities represent sales.
 
-| Test ID| Scenario                                                                                                    | Input | Expected result | Actual result | Pass/Fail |
-|---     |---     |---|---|---|---|
-| TC01   | Standard portfolio              | Assets: €100,000. IBM: 20% target, 10% current, €150 price. MSFT: 20%, 20%, €90. ORCL: 20%, 30%, €220. AAPL: 20%, 20%, €450. HD: 20%, 20%, €70. | IBM: +66.6667; MSFT: 0; ORCL: -45.4545; AAPL: 0; HD: 0 shares. | Pending | Pending |
-| TC02   | Security already at target      | Assets: €100,000. IBM: 20% target, 20% current, €150 price.                                                                                     | IBM: 0 shares. | Pending | Pending |
-| TC03   | Security below target           | Assets: €100,000. IBM: 30% target, 10% current, €150 price. | IBM: +133.3333 shares. | Pending | Pending |
-| TC04   | Security above target           | Assets: €100,000. IBM: 10% target, 30% current, €150 price. | IBM: -133.3333 shares. | Pending | Pending |
-| TC05   | Different portfolio allocations | Assets: €100,000. IBM: 30% target, 10% current, €100 price. MSFT: 5% target, 10% current, €50 price. | IBM: +200; MSFT: -100 shares. | Pending | Pending |
-| TC06   | Different total asset value     | Assets: €200,000. IBM: 20% target, 10% current, €100 price. | IBM: +200 shares. | Pending | Pending |
-| TC07   | Single-security portfolio       | Assets: €100,000. IBM: 50% target, 20% current, €100 price. | IBM: +300 shares. | Pending | Pending |
-| TC08   | Empty portfolio                 | Assets: €100,000. No securities supplied. | Empty results dictionary. | Pending | Pending |
-| TC09   | Zero total assets               | Assets: €0. IBM: 20% target, 10% current, €100 price. | IBM: 0 shares. | Pending | Pending |
-| TC10   | Zero unit share price           | Assets: €100,000. IBM: 20% target, 10% current, €0 price. | Validation error: zero share price rejected. | Pending | Pending |
-| TC11   | Missing security data           | Assets: €100,000. IBM: target 20%, current 10%, price missing. | Validation error: missing price rejected. | Pending | Pending |
-| TC12 | Missing target percentage | IBM security has no `target` field | ValueError identifying missing `target` | ValueError: IBM: Missing required field 'target' | PASS |
-| TC13 | Missing current percentage | IBM security has no `current` field | ValueError identifying missing `current` | ValueError: IBM: Missing required field 'current' | PASS |
+All test cases are documented for manual execution. Actual results and execution statuses remain pending until the manual tests have been performed. Automated execution is documented separately through pytest.
 
-### Test Execution Notes
+### TC01 – Standard Portfolio
 
-- Actual results will be recorded after executing each test.
-- Pass/Fail status will be assigned by comparing actual results against expected results.
-- TC10 and TC11 require input validation to be implemented before they can pass.
-- Fractional share quantities are retained by the current implementation; no rounding is applied.
+**Test data:** Portfolio value USD 100,000. Portfolio contains IBM, MSFT, ORCL, AAPL and HD, using the target allocations, current allocations and share prices specified in the assessment.
 
+**Expected result:** Buy 66.6667 IBM shares, sell 45.4545 ORCL shares. No trades for MSFT, AAPL or HD.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC02 – Security at Target Allocation
+
+**Test data:** IBM: target 20%, current 20%, price USD 150. Portfolio value USD 100,000.
+
+**Expected result:** Zero shares to buy or sell.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC03 – Security Below Target Allocation
+
+**Test data:** IBM: target 30%, current 10%, price USD 150. Portfolio value USD 100,000.
+
+**Expected result:** Buy 133.3333 IBM shares.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC04 – Security Above Target Allocation
+
+**Test data:** IBM: target 10%, current 30%, price USD 150. Portfolio value USD 100,000.
+
+**Expected result:** Sell 133.3333 IBM shares.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC05 – Different Security Allocations
+
+**Test data:** IBM: target 30%, current 10%, price USD 100. MSFT: target 5%, current 10%, price USD 50. Portfolio value USD 100,000.
+
+**Expected result:** Buy 200 IBM shares and sell 100 MSFT shares.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC06 – Different Portfolio Value
+
+**Test data:** IBM: target 20%, current 10%, price USD 100. Portfolio value USD 200,000.
+
+**Expected result:** Buy 200 IBM shares.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC07 – Single-Security Portfolio
+
+**Test data:** IBM: target 50%, current 20%, price USD 100. Portfolio value USD 100,000.
+
+**Expected result:** Buy 300 IBM shares.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC08 – Empty Portfolio
+
+**Test data:** Portfolio value USD 100,000. No securities supplied.
+
+**Expected result:** Return an empty results dictionary.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC09 – Zero Portfolio Value
+
+**Test data:** IBM: target 20%, current 10%, price USD 100. Portfolio value USD 0.
+
+**Expected result:** Zero shares to buy or sell.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC10 – Zero Share Price
+
+**Test data:** IBM: target 20%, current 10%, price USD 0. Portfolio value USD 100,000.
+
+**Expected result:** Raise a ValueError stating that the share price must be greater than zero.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC11 – Missing Share Price
+
+**Test data:** Portfolio value USD 100,000. IBM: target 20%, current 10%. The `price` field is omitted.
+
+**Expected result:** Raise a ValueError identifying the missing `price` field.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC12 – Missing Target Allocation
+
+**Test data:** Portfolio value USD 100,000. IBM: current 10%, price USD 150. The `target` field is omitted.
+
+**Expected result:** Raise a ValueError identifying the missing `target` field.
+
+**Actual result:** Pending  
+**Status:** Pending
+
+### TC13 – Missing Current Allocation
+
+**Test data:** Portfolio value USD 100,000. IBM: target 20%, price USD 150. The `current` field is omitted.
+
+**Expected result:** Raise a ValueError identifying the missing `current` field.
+
+**Actual result:** Pending  
+**Status:** Pending
 
 ## 6. Automated Testing
 
-Automated tests are implemented using Python and pytest. The test suite validates the calculated share quantities and checks the application's input validation and error handling.
+Automated tests are implemented using Python and pytest. The test suite verifies the calculated share quantities for valid inputs and checks input validation and error handling for invalid inputs.
 
 ### Test Organisation
 
 The automated test suite is separated into two files:
 
-| **Test file** | **Purpose** | **Test cases** |
+| Test file | Purpose | Test cases |
 |---|---|---|
 | `test_rebalancing_positive.py` | Tests calculations using valid portfolio data. | TC01–TC09 |
 | `test_rebalancing_negative.py` | Tests input validation and error handling. | TC10–TC13 |
@@ -81,7 +178,7 @@ The automated test suite is separated into two files:
 
 Pytest markers categorise tests so that specific groups can be executed independently. The following markers are configured in `pytest.ini`:
 
-| **Marker** | **Purpose** | **Test cases** |
+| Marker | Purpose | Test cases |
 |---|---|---|
 | `smoke` | Essential checks confirming core application functionality. | TC01, TC02 |
 | `regression` | Checks that existing application functionality continues to work correctly. | TC01–TC13 |
@@ -92,7 +189,7 @@ A test can have multiple markers. For example, TC01 is classified as a smoke, re
 
 ### Pytest Command Options
 
-| **Option** | **Description** |
+| Option | Description |
 |---|---|
 | `-s` | Displays `print()` statements from the application during test execution instead of capturing them. |
 | `-v` | Displays individual test names and their results. |
@@ -108,7 +205,7 @@ python -m pytest -v -s
 
 Run individual test groups using marker selection:
 
-| **Command** | **Description** |
+| Command | Description |
 |---|---|
 | `python -m pytest -m smoke -v -s` | Runs smoke tests. |
 | `python -m pytest -m regression -v -s` | Runs regression tests. |
@@ -124,29 +221,38 @@ python -m pytest test_rebalancing_negative.py -v -s
 
 ## 7. Project Structure
 
+The project is organised as follows:
+
 ```text
 Technical_Assessment_Aidan_Davis/
 │
-├── .venv/                  # Python virtual environment
-├── .gitignore              # Files excluded from Git
-├── rebalancing.py          # Rebalancing application logic
-├── test_data.py            # Input data for all test scenarios
-├── conftest.py              # Shared pytest fixtures and setup
-├── test_rebalancing.py     # Automated test cases
-├── pytest.ini               # Pytest configuration
-├── requirements.txt        # Python package dependencies
-└── README.md                # Assessment documentation and manual test cases
+├── .gitignore
+├── rebalancing.py
+├── test_data.py
+├── conftest.py
+├── test_rebalancing_positive.py
+├── test_rebalancing_negative.py
+├── pytest.ini
+├── requirements.txt
+├── README.md
+│
+└── assessment_doc/
+    └── Technical Assessment QA - Aidan Davis.docx
 ```
+
+The Python virtual environment (`.venv/`) and generated cache files are excluded from Git through `.gitignore`.
 
 ### File Responsibilities
 
 | File | Responsibility |
 |---|---|
-| `rebalancing.py` | Contains the rebalancing calculation being tested. |
-| `test_data.py` | Stores the input data for each test scenario. |
-| `conftest.py` | Provides reusable pytest fixtures and shared test setup. |
-| `test_rebalancing_positive.py` | Contains automated test cases and expected results. |
-| `pytest.ini` | Configures pytest test discovery and execution. |
+| `rebalancing.py` | Contains the portfolio rebalancing calculation and input validation. |
+| `test_data.py` | Stores input data for all test scenarios. |
+| `conftest.py` | Reserved for shared pytest fixtures if required across multiple test files. No active fixtures are currently defined. |
+| `test_rebalancing_positive.py` | Contains automated tests for valid inputs and expected calculations (TC01–TC09). |
+| `test_rebalancing_negative.py` | Contains automated tests for invalid inputs and validation errors (TC10–TC13). |
+| `pytest.ini` | Configures pytest test discovery and markers. |
 | `requirements.txt` | Lists the Python packages required to run the tests. |
 | `.gitignore` | Specifies files and folders Git should ignore. |
-| `README.md` | Documents the assessment, assumptions, manual test cases and project structure. |
+| `README.md` | Documents the assessment, assumptions, manual test cases and automated testing. |
+| `assessment_doc/Technical Assessment QA - Aidan Davis.docx` | Contains the technical assessment submission. |
