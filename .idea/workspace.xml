@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bef2117a-7ad9-493d-85cb-da07cf884c24" name="Changes" comment="Add TC02 automated test for security at target allocation and updated project structure">
+    <list default="true" id="bef2117a-7ad9-493d-85cb-da07cf884c24" name="Changes" comment="Add TC10 test exposing zero share price division bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_rebalancing.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_rebalancing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rebalancing.py" beforeDir="false" afterPath="$PROJECT_DIR$/rebalancing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +111,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1793462830895</updated>
-      <workItem from="1793462832095" duration="23377000" />
+      <workItem from="1793462832095" duration="24176000" />
     </task>
     <task id="LOCAL-00001" summary="Initial project setup">
       <option name="closed" value="true" />
@@ -162,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793612778855</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add TC10 test exposing zero share price division bug">
+      <option name="closed" value="true" />
+      <created>1793627336021</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1793627336021</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +192,8 @@
     <MESSAGE value="Initial rebalancing implementation and test setup" />
     <MESSAGE value="Documented manual rebalancing test cases" />
     <MESSAGE value="Add TC02 automated test for security at target allocation and updated project structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add TC02 automated test for security at target allocation and updated project structure" />
+    <MESSAGE value="Add TC10 test exposing zero share price division bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add TC10 test exposing zero share price division bug" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Technical_Assessment_Aidan_Davis$.coverage" NAME=" Coverage Results" MODIFIED="1793467954561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

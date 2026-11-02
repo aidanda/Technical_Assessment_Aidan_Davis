@@ -17,6 +17,11 @@ def rebalance(total_assets, portfolio):
         difference = target_value - current_value
 
         # Convert the monetary difference into a number of shares using the unit price.
+        # Check that the share price is greater than zero.
+        if data["price"] <= 0:
+            raise ValueError("Share price must be greater than zero")
+
+        # Convert the monetary difference into a number of shares using the unit price.
         shares = difference / data["price"]
 
         # Store the share quantity against the security name.
