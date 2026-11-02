@@ -66,34 +66,24 @@ Positive share quantities represent purchases; negative quantities represent sal
 
 ## 6. Automated Testing
 
-Automated tests are implemented using Python and pytest.
-The automated test suite validates the calculated share quantities against expected results for the supported test scenarios.
-Run the tests from the project directory:
-
-```bash
-python -m pytest test_rebalancing_positive.py -v - s
-```
-
-## 7. Pytest Markers and Test Execution
+Automated tests are implemented using Python and pytest. The test suite validates the calculated share quantities and checks the application's input validation and error handling.
 
 ### Test Organisation
 
-The automated test suite is separated into two files to distinguish between valid and invalid input scenarios:
+The automated test suite is separated into two files:
 
-| Test file | Purpose | Test cases |
+| **Test file** | **Purpose** | **Test cases** |
 |---|---|---|
 | `test_rebalancing_positive.py` | Tests calculations using valid portfolio data. | TC01–TC09 |
-| `test_rebalancing_negative.py` | Tests application validation and error handling. | TC10–TC13 |
+| `test_rebalancing_negative.py` | Tests input validation and error handling. | TC10–TC13 |
 
 ### Pytest Markers
 
-Pytest markers are used to categorise tests, allowing specific groups of tests to be executed independently.
+Pytest markers categorise tests so that specific groups can be executed independently. The following markers are configured in `pytest.ini`:
 
-The following markers are configured in `pytest.ini`:
-
-| Marker | Purpose | Test cases |
+| **Marker** | **Purpose** | **Test cases** |
 |---|---|---|
-| `smoke` | Essential checks confirming that core application functionality works. | TC01, TC02 |
+| `smoke` | Essential checks confirming core application functionality. | TC01, TC02 |
 | `regression` | Checks that existing application functionality continues to work correctly. | TC01–TC13 |
 | `positive` | Tests valid input and expected calculation results. | TC01–TC09 |
 | `negative` | Tests invalid input and expected validation errors. | TC10–TC13 |
@@ -102,27 +92,23 @@ A test can have multiple markers. For example, TC01 is classified as a smoke, re
 
 ### Pytest Command Options
 
-The following command-line options are used when executing tests:
-
-| Option | Description |
+| **Option** | **Description** |
 |---|---|
 | `-s` | Displays `print()` statements from the application during test execution instead of capturing them. |
-| `-v` | Verbose output. Displays each individual test name and its result. |
+| `-v` | Displays individual test names and their results. |
 | `-m` | Selects tests using a registered pytest marker, such as `smoke`, `regression`, `positive` or `negative`. |
 
-### Running the Test Suite
+### Running the Tests
 
-The complete test suite can be executed using:
+Run the complete test suite from the project directory:
 
-```powershell
+```bash
 python -m pytest -v -s
 ```
 
-This runs all discovered tests, regardless of their markers, displaying individual test results and application output.
+Run individual test groups using marker selection:
 
-Individual test groups can also be executed using marker selection:
-
-| Command | Description |
+| **Command** | **Description** |
 |---|---|
 | `python -m pytest -m smoke -v -s` | Runs smoke tests. |
 | `python -m pytest -m regression -v -s` | Runs regression tests. |
@@ -131,17 +117,10 @@ Individual test groups can also be executed using marker selection:
 
 Individual test files can also be executed independently:
 
-```powershell
-python -m pytest tests/test_rebalancing_positive.py -v -s
+```bash
+python -m pytest test_rebalancing_positive.py -v -s
+python -m pytest test_rebalancing_negative.py -v -s
 ```
-
-```powershell
-python -m pytest tests/test_rebalancing_negative.py -v -s
-```
-
-### Test Execution Strategy
-
-The markers provide flexibility in how the test suite
 
 ## 7. Project Structure
 
