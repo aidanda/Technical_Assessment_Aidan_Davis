@@ -1,7 +1,7 @@
 from test_data import *
 from rebalancing import *
 
-
+# TC01
 def test_rebalance_portfolio1():
     # Call the rebalancing function using Portfolio 1.
     result = rebalance(total_assets1, portfolio1)
@@ -12,3 +12,11 @@ def test_rebalance_portfolio1():
     assert result["ORCL"] == -10000 / 220
     assert result["AAPL"] == 0
     assert result["HD"] == 0
+
+# TC02
+def test_rebalance_security_already_at_target():
+    # Call the rebalancing function using Portfolio 2.
+    result = rebalance(total_assets2, portfolio2)
+
+    # Check that no shares need to be bought or sold.
+    assert result["IBM"] == 0

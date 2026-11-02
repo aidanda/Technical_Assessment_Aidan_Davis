@@ -7,3 +7,9 @@ portfolio1 = {
     "AAPL": {"target": 20, "current": 20, "price": 450},
     "HD": {"target": 20, "current": 20, "price": 70}
 }
+
+total_assets2 = 100000
+
+portfolio2 = {
+    "IBM": {"target": 20, "current": 20, "price": 150}
+}

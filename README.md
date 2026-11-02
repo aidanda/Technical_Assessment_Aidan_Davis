@@ -78,8 +78,26 @@ python -m pytest test_rebalancing.py -v - s
 ```text
 Technical_Assessment_Aidan_Davis/
 │
-├── rebalancing.py
-├── test_data.py
-├── test_rebalancing.py
-├── README.md
-└
+├── .venv/                  # Python virtual environment
+├── .gitignore              # Files excluded from Git
+├── rebalancing.py          # Rebalancing application logic
+├── test_data.py            # Input data for all test scenarios
+├── conftest.py              # Shared pytest fixtures and setup
+├── test_rebalancing.py     # Automated test cases
+├── pytest.ini               # Pytest configuration
+├── requirements.txt        # Python package dependencies
+└── README.md                # Assessment documentation and manual test cases
+```
+
+### File Responsibilities
+
+| File | Responsibility |
+|---|---|
+| `rebalancing.py` | Contains the rebalancing calculation being tested. |
+| `test_data.py` | Stores the input data for each test scenario. |
+| `conftest.py` | Provides reusable pytest fixtures and shared test setup. |
+| `test_rebalancing.py` | Contains automated test cases and expected results. |
+| `pytest.ini` | Configures pytest test discovery and execution. |
+| `requirements.txt` | Lists the Python packages required to run the tests. |
+| `.gitignore` | Specifies files and folders Git should ignore. |
+| `README.md` | Documents the assessment, assumptions, manual test cases and project structure. |
