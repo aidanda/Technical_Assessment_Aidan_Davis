@@ -8,6 +8,7 @@ portfolio1 = {
     "HD": {"target": 20, "current": 20, "price": 70}
 }
 
+
 total_assets2 = 100000
 
 portfolio2 = {
@@ -66,4 +67,16 @@ total_assets11 = 100000
 
 portfolio11 = {
     "IBM": {"target": 20, "current": 10}
+}
+
+# TC12 - Missing target percentage
+total_assets12 = 100000
+portfolio12 = {
+    "IBM": {"current": 10, "price": 150}
+}
+
+# TC13 - Missing current percentage
+total_assets13 = 100000
+portfolio13 = {
+    "IBM": {"target": 20, "price": 150}
 }

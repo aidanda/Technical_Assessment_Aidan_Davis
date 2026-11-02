@@ -34,7 +34,6 @@ A positive result represents shares to buy, a negative result represents shares 
 - The total portfolio asset value is supplied as an input.
 - Fractional share quantities are supported by the current implementation.
 - Results are calculated independently for each security.
-- Invalid or missing input handling will be documented according to the implemented validation behaviour.
 
 
 ## 5. Manual Test Cases
@@ -54,6 +53,8 @@ Positive share quantities represent purchases; negative quantities represent sal
 | TC09   | Zero total assets               | Assets: €0. IBM: 20% target, 10% current, €100 price. | IBM: 0 shares. | Pending | Pending |
 | TC10   | Zero unit share price           | Assets: €100,000. IBM: 20% target, 10% current, €0 price. | Validation error: zero share price rejected. | Pending | Pending |
 | TC11   | Missing security data           | Assets: €100,000. IBM: target 20%, current 10%, price missing. | Validation error: missing price rejected. | Pending | Pending |
+| TC12 | Missing target percentage | IBM security has no `target` field | ValueError identifying missing `target` | ValueError: IBM: Missing required field 'target' | PASS |
+| TC13 | Missing current percentage | IBM security has no `current` field | ValueError identifying missing `current` | ValueError: IBM: Missing required field 'current' | PASS |
 
 ### Test Execution Notes
 
@@ -70,8 +71,77 @@ The automated test suite validates the calculated share quantities against expec
 Run the tests from the project directory:
 
 ```bash
-python -m pytest test_rebalancing.py -v - s
+python -m pytest test_rebalancing_positive.py -v - s
 ```
+
+## 7. Pytest Markers and Test Execution
+
+### Test Organisation
+
+The automated test suite is separated into two files to distinguish between valid and invalid input scenarios:
+
+| Test file | Purpose | Test cases |
+|---|---|---|
+| `test_rebalancing_positive.py` | Tests calculations using valid portfolio data. | TC01–TC09 |
+| `test_rebalancing_negative.py` | Tests application validation and error handling. | TC10–TC13 |
+
+### Pytest Markers
+
+Pytest markers are used to categorise tests, allowing specific groups of tests to be executed independently.
+
+The following markers are configured in `pytest.ini`:
+
+| Marker | Purpose | Test cases |
+|---|---|---|
+| `smoke` | Essential checks confirming that core application functionality works. | TC01, TC02 |
+| `regression` | Checks that existing application functionality continues to work correctly. | TC01–TC13 |
+| `positive` | Tests valid input and expected calculation results. | TC01–TC09 |
+| `negative` | Tests invalid input and expected validation errors. | TC10–TC13 |
+
+A test can have multiple markers. For example, TC01 is classified as a smoke, regression and positive test.
+
+### Pytest Command Options
+
+The following command-line options are used when executing tests:
+
+| Option | Description |
+|---|---|
+| `-s` | Displays `print()` statements from the application during test execution instead of capturing them. |
+| `-v` | Verbose output. Displays each individual test name and its result. |
+| `-m` | Selects tests using a registered pytest marker, such as `smoke`, `regression`, `positive` or `negative`. |
+
+### Running the Test Suite
+
+The complete test suite can be executed using:
+
+```powershell
+python -m pytest -v -s
+```
+
+This runs all discovered tests, regardless of their markers, displaying individual test results and application output.
+
+Individual test groups can also be executed using marker selection:
+
+| Command | Description |
+|---|---|
+| `python -m pytest -m smoke -v -s` | Runs smoke tests. |
+| `python -m pytest -m regression -v -s` | Runs regression tests. |
+| `python -m pytest -m positive -v -s` | Runs positive tests. |
+| `python -m pytest -m negative -v -s` | Runs negative tests. |
+
+Individual test files can also be executed independently:
+
+```powershell
+python -m pytest tests/test_rebalancing_positive.py -v -s
+```
+
+```powershell
+python -m pytest tests/test_rebalancing_negative.py -v -s
+```
+
+### Test Execution Strategy
+
+The markers provide flexibility in how the test suite
 
 ## 7. Project Structure
 
@@ -96,7 +166,7 @@ Technical_Assessment_Aidan_Davis/
 | `rebalancing.py` | Contains the rebalancing calculation being tested. |
 | `test_data.py` | Stores the input data for each test scenario. |
 | `conftest.py` | Provides reusable pytest fixtures and shared test setup. |
-| `test_rebalancing.py` | Contains automated test cases and expected results. |
+| `test_rebalancing_positive.py` | Contains automated test cases and expected results. |
 | `pytest.ini` | Configures pytest test discovery and execution. |
 | `requirements.txt` | Lists the Python packages required to run the tests. |
 | `.gitignore` | Specifies files and folders Git should ignore. |
