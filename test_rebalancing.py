@@ -100,3 +100,11 @@ def test_rebalance_zero_share_price():
     # Check that the application raises the expected exception.
     with pytest.raises(ValueError, match="Share price must be greater than zero"):
         rebalance(total_assets10, portfolio10)
+
+# TC11
+# Verify that the application detects missing security data
+# and raises a ValueError identifying the missing share price.
+def test_rebalancing_missing_security_data():
+
+    with pytest.raises(ValueError, match="price"):
+        rebalance(total_assets11, portfolio11)

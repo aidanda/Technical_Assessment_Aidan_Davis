@@ -60,3 +60,10 @@ total_assets10 = 100000
 portfolio10 = {
     "IBM": {"target": 20, "current": 10, "price": 0}
 }
+
+
+total_assets11 = 100000
+
+portfolio11 = {
+    "IBM": {"target": 20, "current": 10}
+}
