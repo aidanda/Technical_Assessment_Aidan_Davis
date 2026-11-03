@@ -256,3 +256,18 @@ The Python virtual environment (`.venv/`) and generated cache files are excluded
 | `.gitignore` | Specifies files and folders Git should ignore. |
 | `README.md` | Documents the assessment, assumptions, manual test cases and automated testing. |
 | `assessment_doc/Technical Assessment QA - Aidan Davis.docx` | Contains the technical assessment submission. |
+
+
+## 8. Potential CI/CD and Enterprise QA Integration
+
+The current implementation demonstrates the core portfolio rebalancing functionality and its automated verification using pytest.
+
+In a larger enterprise development environment, the solution could be extended through integration with established QA and DevOps tooling:
+
+- **Jenkins CI/CD:** Configure automated test execution following code commits or pull requests, with JUnit XML reports published as part of each build.
+- **Jira and Xray:** Integrate test management to provide requirements traceability, test execution tracking and centralised reporting of automated test results.
+- **Automated Quality Reporting:** Generate execution summaries and maintain historical test results to monitor regression trends and build stability.
+- **Code Quality Analysis:** Introduce static analysis, linting and type checking to improve code quality and maintainability.
+- **Release Quality Gates:** Incorporate automated test results into the delivery pipeline to support release readiness decisions.
+
+These integrations would extend the existing automated test suite into a broader continuous integration and quality engineering workflow.
